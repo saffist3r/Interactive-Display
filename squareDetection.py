@@ -4,7 +4,18 @@ from freenect import sync_get_depth as get_depth, sync_get_video as get_video
 while True:
     (depth,_) = get_depth()
     (dst, _) = get_video()
-    kernel = np.ones((4, 4), np.float32) / 25
+    #-----------
+    orig = np.array(dst[::2, ::2, ::-1])
+    frame = np.array(dst[::2, ::2, ::-1])
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+
+    lower_red = np.array([150, 40, 40])
+    upper_red = np.array([200, 190, 230])
+
+    mask = cv2.inRange(hsv, lower_red, upper_red)
+    dst = cv2.bitwise_and(frame, frame, mask=mask)
+    #-----------
+    kernel = np.ones((5, 5), np.float32) / 25
     rgb = cv2.filter2D(dst, -1, kernel)
     gray_image = cv2.cvtColor(rgb, cv2.COLOR_BGR2GRAY)
     ret, thresh = cv2.threshold(gray_image, 127, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
@@ -14,10 +25,10 @@ while True:
         approx = cv2.approxPolyDP(cnt, epsilon, True)
         if len(approx) == 4:
             M = cv2.moments(cnt)
-            cx = int(M['m10'] / M['m00'])
-            cy = int(M['m01'] / M['m00'])
+         #   cx = int(M['m10'] / M['m00'])
+         #   cy = int(M['m01'] / M['m00'])
             cv2.drawContours(rgb, approx, -1, (0, 255, 0), 3)
-    print(depth[353][328])
+    #print(depth[353][328])
     if (depth[353][328] < 821):
         cv2.circle(rgb, (353, 821), 20, (0, 0, 0), 2, -1)
     cv2.imshow('orig', thresh)

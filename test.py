@@ -9,6 +9,8 @@ def doloop():
     while True:
         # Get a fresh frame
         (depth, _), (rgb, _) = get_depth(), get_video()
+        test = np.array(rgb[::2,::2,::-1])
+        cv2.imshow('FIRST',test)
         if(depth[353][167] > min):
             min = depth[353][167]
             print(min)
