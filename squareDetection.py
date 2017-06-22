@@ -25,8 +25,8 @@ while True:
         approx = cv2.approxPolyDP(cnt, epsilon, True)
         if len(approx) == 4:
             M = cv2.moments(cnt)
-         #   cx = int(M['m10'] / M['m00'])
-         #   cy = int(M['m01'] / M['m00'])
+            cx = int(M['m10'] / M['m00'])
+            cy = int(M['m01'] / M['m00'])
             cv2.drawContours(rgb, approx, -1, (0, 255, 0), 3)
     #print(depth[353][328])
     if (depth[353][328] < 821):
