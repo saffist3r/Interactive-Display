@@ -12,10 +12,6 @@ def doloop():
         (depth, _), (rgb, _) = get_depth(), get_video()
         test = np.array(rgb[::2,::2,::-1])
         cv2.imshow('FIRST',test)
-        for i in range(1,480):
-            for j in range(1,640):
-                if (depth[i][j] > initdepth[i][j]+5):
-                    cv2.circle(rgb, (i, j), 20, (0, 0, 0), 2, -1)
         # Build a two panel color image
         d3 = np.dstack((depth, depth, depth)).astype(np.uint8)
         da = np.hstack((d3, rgb))
