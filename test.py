@@ -10,6 +10,7 @@ def doloop():
     while True:
         # Get a fresh frame
         (depth, _), (rgb, _) = get_depth(), get_video()
+        #cv2.rectangle(rgb, (230, 100), (440, 300), (255, 0, 0), 2)
         test = np.array(rgb[::2,::2,::-1])
         cv2.imshow('FIRST',test)
         # Build a two panel color image
