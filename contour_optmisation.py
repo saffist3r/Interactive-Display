@@ -6,6 +6,8 @@ import numpy as np
 import cv2
 from freenect import sync_get_video as get_video
 fgbg = cv2.createBackgroundSubtractorMOG2()
+
+
 def center_detect():
     result = []
     (rgb, _) = get_video()
@@ -29,3 +31,4 @@ def center_detect():
                 cy = int(M['m01'] / M['m00'])
                 result.append([cx,cy])
     return(result)
+#print(center_detect())

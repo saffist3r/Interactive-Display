@@ -43,7 +43,7 @@ for i in range(0,5):
     frame = np.array(dst[::1, ::1, ::-1])
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-    lower_red = np.array([0, 0, 100])
+    lower_red = np.array([0, 0, 183])
     upper_red = np.array([255, 255, 255])
 
     mask = cv2.inRange(hsv, lower_red, upper_red)
